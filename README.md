@@ -4,7 +4,7 @@
 
 ## Benefits
 
-* Let install and uninstall steps more cleanly (NO MORE `sudo make install`!  It will mess up your system!)
+* Let installing and uninstalling steps more cleanly (NO MORE `sudo make install`!  It will mess up your system!)
 * After installation, you don't have to manually set environment variables or `source` anything by yourself!
 
 ## Use Steps
