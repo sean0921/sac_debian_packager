@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eux
+set -eu
 
 printf "\033[1m+ Cleaning previous build...\033[0m\n"
 test -d pkgroot && rm -r pkgroot
