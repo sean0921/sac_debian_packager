@@ -20,15 +20,15 @@ function check_distribution() {
             DEPENDENCIES="x11-apps, libncurses6, libreadline7"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"debian10"
             ;;
-        '"Ubuntu 16.04.'*)
+        '"Ubuntu 16.04'*)
             DEPENDENCIES="x11-apps, libncurses5, libreadline6"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"ubuntu16"
             ;;
-        '"Ubuntu 18.04.'*)
+        '"Ubuntu 18.04'*)
             DEPENDENCIES="x11-apps, libncurses5, libreadline7"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"ubuntu18"
             ;;
-        '"Ubuntu 20.04.'*)
+        '"Ubuntu 20.04'*)
             DEPENDENCIES="x11-apps, libncurses6, libreadline8"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"ubuntu20"
             ;;
