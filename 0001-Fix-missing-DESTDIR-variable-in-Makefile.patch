@@ -1,0 +1,110 @@
+From 10e92863f89c338e9194363fe35bb684887f368f Mon Sep 17 00:00:00 2001
+From: Sean Ho <sean.li.shin.ho@gmail.com>
+Date: Fri, 26 Jun 2020 19:41:06 +0800
+Subject: [PATCH] Fix missing $(DESTDIR) variable in Makefile
+
+---
+ Makefile.am | 16 ++++++++--------
+ Makefile.in | 17 +++++++++--------
+ 2 files changed, 17 insertions(+), 16 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 80d7e82..9257aef 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -55,19 +55,19 @@ CLEANFILES =  bin/sacinit.sh bin/sacinit.csh bin/sac-config
+ 
+ # Rules to install Extra Subdirectories and Files
+ install-data-hook:
+-	$(INSTALL) -d $(prefix)/utils
++	$(INSTALL) -d $(DESTDIR)$(prefix)/utils
+ 	cd $(srcdir); \
+ 	for d in $(EXTRA_INSTALL); do \
+ 	   for f in `(find $$d -type d)`; do \
+-	      $(INSTALL) -d $(prefix)/$$f; \
++	      $(INSTALL) -d $(DESTDIR)$(prefix)/$$f; \
+ 	   done; \
+ 	   for f in `(find $$d -type f)`; do \
+-	      $(INSTALL_DATA) $$f $(prefix)/$$f; \
++	      $(INSTALL_DATA) $$f $(DESTDIR)$(prefix)/$$f; \
+ 	   done; \
+ 	done; \
+ 	cd -
+-	( cd $(prefix)/lib && rm -f sacio.a )
+-	( cd $(prefix)/lib && $(LN_S) libsacio.a sacio.a )
++	( cd $(DESTDIR)$(prefix)/lib && rm -f sacio.a )
++	( cd $(DESTDIR)$(prefix)/lib && $(LN_S) libsacio.a sacio.a )
+ 	$(MAKE) dist-hook
+ 
+ dist-save-time: distdir
+@@ -95,15 +95,15 @@ dist-binary-gzip: dist-binary-install
+ 
+ bin/sacinit.sh: $(abs_top_srcdir)/bin/sacinit.sh.in
+ 	@mkdir -p bin
+-	$(SED) "s,__SAC_PREFIX__,$(prefix)," $(abs_top_srcdir)/bin/sacinit.sh.in > bin/sacinit.sh
++	$(SED) "s,__SAC_PREFIX__,$(DESTDIR)$(prefix)," $(abs_top_srcdir)/bin/sacinit.sh.in > bin/sacinit.sh
+ 
+ bin/sacinit.csh: $(abs_top_srcdir)/bin/sacinit.csh.in
+ 	@mkdir -p bin
+-	$(SED) "s,__SAC_PREFIX__,$(prefix)," $(abs_top_srcdir)/bin/sacinit.csh.in > bin/sacinit.csh
++	$(SED) "s,__SAC_PREFIX__,$(DESTDIR)$(prefix)," $(abs_top_srcdir)/bin/sacinit.csh.in > bin/sacinit.csh
+ 
+ bin/sac-config: $(abs_top_srcdir)/bin/sac-config.in
+ 	@mkdir -p bin
+-	$(SED) -e "s,__SAC_PREFIX__,$(prefix)," -e "s,__SAC_VERSION__,$(VERSION)," $(abs_top_srcdir)/bin/sac-config.in > bin/sac-config
++	$(SED) -e "s,__SAC_PREFIX__,$(DESTDIR)$(prefix)," -e "s,__SAC_VERSION__,$(VERSION)," $(abs_top_srcdir)/bin/sac-config.in > bin/sac-config
+ 
+ # Run when creating a distribtion
+ #   - Remove the CVS files
+diff --git a/Makefile.in b/Makefile.in
+index 2975d09..36c95d4 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -831,19 +831,20 @@ uninstall-am: uninstall-binSCRIPTS
+ 
+ # Rules to install Extra Subdirectories and Files
+ install-data-hook:
+-	$(INSTALL) -d $(prefix)/utils
++	$(INSTALL) -d $(DESTDIR)$(prefix)/utils
++	$(INSTALL) -d $(DESTDIR)$(prefix)/lib
+ 	cd $(srcdir); \
+ 	for d in $(EXTRA_INSTALL); do \
+ 	   for f in `(find $$d -type d)`; do \
+-	      $(INSTALL) -d $(prefix)/$$f; \
++	      $(INSTALL) -d $(DESTDIR)$(prefix)/$$f; \
+ 	   done; \
+ 	   for f in `(find $$d -type f)`; do \
+-	      $(INSTALL_DATA) $$f $(prefix)/$$f; \
++	      $(INSTALL_DATA) $$f $(DESTDIR)$(prefix)/$$f; \
+ 	   done; \
+ 	done; \
+ 	cd -
+-	( cd $(prefix)/lib && rm -f sacio.a )
+-	( cd $(prefix)/lib && $(LN_S) libsacio.a sacio.a )
++	( cd $(DESTDIR)$(prefix)/lib && rm -f sacio.a )
++	( cd $(DESTDIR)$(prefix)/lib && $(LN_S) libsacio.a sacio.a )
+ 	$(MAKE) dist-hook
+ 
+ dist-save-time: distdir
+@@ -871,15 +872,15 @@ dist-binary-gzip: dist-binary-install
+ 
+ bin/sacinit.sh: $(abs_top_srcdir)/bin/sacinit.sh.in
+ 	@mkdir -p bin
+-	$(SED) "s,__SAC_PREFIX__,$(prefix)," $(abs_top_srcdir)/bin/sacinit.sh.in > bin/sacinit.sh
++	$(SED) "s,__SAC_PREFIX__,$(DESTDIR)$(prefix)," $(abs_top_srcdir)/bin/sacinit.sh.in > bin/sacinit.sh
+ 
+ bin/sacinit.csh: $(abs_top_srcdir)/bin/sacinit.csh.in
+ 	@mkdir -p bin
+-	$(SED) "s,__SAC_PREFIX__,$(prefix)," $(abs_top_srcdir)/bin/sacinit.csh.in > bin/sacinit.csh
++	$(SED) "s,__SAC_PREFIX__,$(DESTDIR)$(prefix)," $(abs_top_srcdir)/bin/sacinit.csh.in > bin/sacinit.csh
+ 
+ bin/sac-config: $(abs_top_srcdir)/bin/sac-config.in
+ 	@mkdir -p bin
+-	$(SED) -e "s,__SAC_PREFIX__,$(prefix)," -e "s,__SAC_VERSION__,$(VERSION)," $(abs_top_srcdir)/bin/sac-config.in > bin/sac-config
++	$(SED) -e "s,__SAC_PREFIX__,$(DESTDIR)$(prefix)," -e "s,__SAC_VERSION__,$(VERSION)," $(abs_top_srcdir)/bin/sac-config.in > bin/sac-config
+ 
+ # Run when creating a distribtion
+ #   - Remove the CVS files
+-- 
+2.26.2
+
