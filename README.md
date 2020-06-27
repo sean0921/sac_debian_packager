@@ -8,6 +8,14 @@
 * Let installing and uninstalling steps more cleanly (NO MORE `sudo make install`!  It will mess up your system!)
 * After installation, you don't have to manually set environment variables or `source` anything by yourself!
 
+## Supported Linux Distribution
+
+* Debian Stretch (9/oldstable)
+* Debian Buster (10/stable)
+* Ubuntu Xenial Xerus (16.04)
+* Ubuntu Bionic Beaver (18.04)
+* Ubuntu Focal Fossa (20.04)
+
 ## Use Steps
 
 ### Install Dependencies
