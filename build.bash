@@ -114,9 +114,6 @@ ln $LN_ARGUMENT pkgroot/opt/sac/bin/sac pkgroot/usr/bin/sac
 ln $LN_ARGUMENT pkgroot/opt/sac/bin/sacinit.sh pkgroot/etc/profile.d/sac_bash_profile.sh
 ln $LN_ARGUMENT pkgroot/opt/sac/bin/sacinit.csh pkgroot/etc/csh/login.d/sacinit.csh
 
-#printf "\033[1;32m+ Verifying program...\033[0m\n"
-#pkgroot/usr/bin/hello
-
 printf "\033[1;32m+ Generating Debian/Ubuntu packaging control file...\033[0m\n"
 check_distribution
 cat > pkgroot/DEBIAN/control <<EOF
