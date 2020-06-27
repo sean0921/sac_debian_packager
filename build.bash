@@ -9,6 +9,36 @@ SOURCE_REQUIRED_CHECKSUMS="10e718c78cbbed405cce5b61053f511c670a85d986ee81d45741f
 ARCH=amd64
 BUILD_ROOT=$(pwd)
 
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]
+then
+    printf "SAC Debian/Ubuntu Package Creator ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\n"
+    printf "\n"
+    printf "usage: \n"
+    printf "    -v, --verbose: show more detail message while building\n"
+    printf "    -V, --version: show more detail message while building\n"
+    printf "    --help: show this help\n"
+    printf "\n"
+    exit 0
+fi
+
+if [ "$1" == "-V" ] || [ "$1" == "--version" ]
+then
+    printf "SAC Debian/Ubuntu Package Creator ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\n"
+    printf "\n"
+    exit 0
+fi
+
+if [ "$1" ==  "-v" ] || [ "$1" ==  "--verbose" ]
+then
+    QUIET=""
+    LN_ARGUMENT="-rsv"
+    RM_ARGUMENT="-v"
+else
+    QUIET="--quiet"
+    LN_ARGUMENT="-rs"
+    RM_ARGUMENT=""
+fi
+
 function check_distribution() {
     DISTRO_NAME=$(grep PRETTY_NAME /etc/os-release|awk -F'=' '{print $2}')
     case $DISTRO_NAME in
@@ -62,26 +92,26 @@ sha256_this_tarball=$(sha256sum $SOURCE_TARBALL_NAME | awk '{print $1}')
     ( printf "\033[1;31m   x Tarball's checksums was wrong! Maybe you use the wrong file.\033[0m\n" && exit 1)
 
 printf "\033[1m+ Extracting...\033[0m\n"
-tar -zxvf "$SOURCE_TARBALL_NAME"
+tar -zxf "$SOURCE_TARBALL_NAME"
 printf "\033[1;32m    - Done!\033[0m\n"
 
 printf "\033[1m+ Preparing for configuration...\033[0m\n"
 cd "$BUILD_ROOT"/sac-"$VERSION"
-patch -p1 < ../0001-Fix-missing-DESTDIR-variable-in-Makefile.patch
-rm -vf bin/sac-config bin/sacinit.csh bin/sacinit.sh
-./configure --prefix="/opt/sac" --enable-readline
+patch $QUIET -p1 < ../0001-Fix-missing-DESTDIR-variable-in-Makefile.patch
+rm $RM_ARGUMENT bin/sac-config bin/sacinit.csh bin/sacinit.sh
+./configure --prefix="/opt/sac" --enable-readline $QUIET
 printf "\033[1;32m    - Done!\033[0m\n"
 
 printf "\033[1m+ Compiling...\033[0m\n"
-make -j$(nproc)
+make -j$(nproc) $QUIET
 printf "\033[1;32m    - Done!\033[0m\n"
 
 printf "\033[1;32m+ Adding program to distro path...\033[0m\n"
-make DESTDIR="$BUILD_ROOT"/pkgroot install
+make DESTDIR="$BUILD_ROOT"/pkgroot $QUIET install
 cd "$BUILD_ROOT"
-ln -rsv pkgroot/opt/sac/bin/sac pkgroot/usr/bin/sac
-ln -rsv pkgroot/opt/sac/bin/sacinit.sh pkgroot/etc/profile.d/sac_bash_profile.sh
-ln -rsv pkgroot/opt/sac/bin/sacinit.csh pkgroot/etc/csh/login.d/sacinit.csh
+ln $LN_ARGUMENT pkgroot/opt/sac/bin/sac pkgroot/usr/bin/sac
+ln $LN_ARGUMENT pkgroot/opt/sac/bin/sacinit.sh pkgroot/etc/profile.d/sac_bash_profile.sh
+ln $LN_ARGUMENT pkgroot/opt/sac/bin/sacinit.csh pkgroot/etc/csh/login.d/sacinit.csh
 
 #printf "\033[1;32m+ Verifying program...\033[0m\n"
 #pkgroot/usr/bin/hello
