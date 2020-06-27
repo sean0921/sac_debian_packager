@@ -3,7 +3,7 @@
 DEBIAN_PACKAGE_NAME=sac-iris
 VERSION=101.6a
 VERSION_DEBPREFIX=
-VERSION_DEBSUFFIX=-1+sdi2.0
+VERSION_DEBSUFFIX=-1+sdp1.0
 SOURCE_TARBALL_NAME=sac-"$VERSION"-source.tar.gz
 SOURCE_REQUIRED_CHECKSUMS="10e718c78cbbed405cce5b61053f511c670a85d986ee81d45741f38fcf6b57d5"
 ARCH=amd64
@@ -11,7 +11,7 @@ BUILD_ROOT=$(pwd)
 
 if [ "$1" == "-h" ] || [ "$1" == "--help" ]
 then
-    printf "SAC Debian/Ubuntu Package Creator ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\n"
+    printf "SAC Debian/Ubuntu Packager ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\n"
     printf "\n"
     printf "usage: \n"
     printf "    -v, --verbose: show more detail message while building\n"
@@ -23,7 +23,7 @@ fi
 
 if [ "$1" == "-V" ] || [ "$1" == "--version" ]
 then
-    printf "SAC Debian/Ubuntu Package Creator ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\n"
+    printf "SAC Debian/Ubuntu Packager ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\n"
     printf "\n"
     exit 0
 fi
@@ -71,7 +71,7 @@ function check_distribution() {
 
 set -eu
 
-printf "\033[1;36mSAC Debian/Ubuntu Package Creator ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\033[0m\n"
+printf "\033[1;36mSAC Debian/Ubuntu Packager ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\033[0m\n"
 printf "\033[1;33m+ Starting Build in $BUILD_ROOT ...\033[0m\n"
 printf "\033[1m+ Cleaning previous build...\033[0m\n"
 test -d pkgroot && rm -r pkgroot
