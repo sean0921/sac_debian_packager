@@ -16,6 +16,11 @@
 * Ubuntu Bionic Beaver (18.04)
 * Ubuntu Focal Fossa (20.04)
 
+## Supported Shell for Profile Installation
+
+* bash
+* csh/tcsh
+
 ## Use Steps
 
 ### Install Dependencies
