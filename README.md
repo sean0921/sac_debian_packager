@@ -1,7 +1,7 @@
 # SAC Debian/Ubuntu Package Creator
 
 * **NOTE: Because of LICENSE restriction, this repository does NOT provide IRIS's SAC source code for you.  You have to APPLY and download sources tarball on your own if you have related qualifications!**
-   - Official software request page: http://ds.iris.edu/ds/nodes/dmc/forms/sac/
+    - Official software request page: http://ds.iris.edu/ds/nodes/dmc/forms/sac/
 
 ## Benefits
 
@@ -31,3 +31,5 @@ apt install ./sac-iris-*_amd64.deb    #### with root
 ```
 
 ### Done!
+
+* Maybe you have re-login the shell to load newer environment.
