@@ -3,7 +3,7 @@
 DEBIAN_PACKAGE_NAME=sac-iris
 VERSION=101.6a
 VERSION_DEBPREFIX=
-VERSION_DEBSUFFIX=-1+sdp1.0
+VERSION_DEBSUFFIX=-1+sdp1.1
 SOURCE_TARBALL_NAME=sac-"$VERSION"-source.tar.gz
 SOURCE_REQUIRED_CHECKSUMS="10e718c78cbbed405cce5b61053f511c670a85d986ee81d45741f38fcf6b57d5"
 ARCH=amd64
@@ -35,11 +35,13 @@ if [ "$1" ==  "-v" ] || [ "$1" ==  "--verbose" ]
 then
     QUIET=""
     LN_ARGUMENT="-rsv"
-    RM_ARGUMENT="-v"
+    RM_ARGUMENT="-rv"
+    MKDIR_ARGUMENT="-pv"
 else
     QUIET="--quiet"
     LN_ARGUMENT="-rs"
-    RM_ARGUMENT=""
+    RM_ARGUMENT="-r"
+    MKDIR_ARGUMENT="-p"
 fi
 
 #################################### Function for phrasing OS detections
@@ -84,15 +86,15 @@ printf "\033[1;33m+ Starting Build in $BUILD_ROOT ...\033[0m\n"
 #################################### Cleaning previous build for preventing accident error
 
 printf "\033[1m+ Cleaning previous build...\033[0m\n"
-test -d pkgroot && rm -r pkgroot
-test -e *.deb && rm *.deb
-test -e sac-"$VERSION" && rm -r sac-"$VERSION"
-mkdir -p pkgroot/DEBIAN
-mkdir -p pkgroot/usr/bin
-mkdir -p pkgroot/usr/share/sac/scripts
-mkdir -p pkgroot/etc/profile.d
-mkdir -p pkgroot/etc/csh/login.d
-mkdir -p pkgroot/opt/sac
+test -d pkgroot && rm $RM_ARGUMENT pkgroot
+test -e *.deb && rm $RM_ARGUMENT *.deb
+test -e sac-"$VERSION" && rm $RM_ARGUMENT sac-"$VERSION"
+mkdir $MKDIR_ARGUMENT pkgroot/DEBIAN
+mkdir $MKDIR_ARGUMENT pkgroot/usr/bin
+mkdir $MKDIR_ARGUMENT pkgroot/usr/share/sac/scripts
+mkdir $MKDIR_ARGUMENT pkgroot/etc/profile.d
+mkdir $MKDIR_ARGUMENT pkgroot/etc/csh/login.d
+mkdir $MKDIR_ARGUMENT pkgroot/opt/sac
 printf "\033[1;32m    - Done!\033[0m\n"
 
 #################################### Checking whether the source code is right or wrong
