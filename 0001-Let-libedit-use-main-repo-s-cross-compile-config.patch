@@ -1,0 +1,25 @@
+From d87b0a213fe644ab73552aac978df954bfce78f9 Mon Sep 17 00:00:00 2001
+From: Sean Ho <sean.li.shin.ho@gmail.com>
+Date: Sat, 27 Jun 2020 14:12:21 +0800
+Subject: [PATCH] Let libedit use main repo's cross-compile config
+
+---
+ libedit/Makefile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libedit/Makefile.in b/libedit/Makefile.in
+index 8e737dd..b0e18f7 100644
+--- a/libedit/Makefile.in
++++ b/libedit/Makefile.in
+@@ -416,7 +416,7 @@ $(LIBEDIT_DIR):
+ #	cp -f $(srcdir)/$(CONFIG_H_IN) $(LIBEDIT_DIR)
+ 
+ lib/libedit.a: $(LIBEDIT_DIR) 
+-	(cd $(LIBEDIT_DIR) && $(LIBEDIT_ENV) ./configure $(LIBEDIT_OPT) --disable-dependency-tracking )
++	(cd $(LIBEDIT_DIR) && $(LIBEDIT_ENV) ./configure $(LIBEDIT_OPT) --host=$(host) --disable-dependency-tracking )
+ #	(cd $(LIBEDIT_DIR) && $(MAKE) MAKEFLAGS="-j 1"  )
+ #	(cd $(LIBEDIT_DIR) && $(MAKE) MAKEFLAGS="-j 1" install )
+ 	(cd $(LIBEDIT_DIR)/src && $(MAKE) )
+-- 
+2.26.2
+

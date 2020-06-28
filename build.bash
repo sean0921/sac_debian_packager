@@ -6,7 +6,7 @@ VERSION_DEBPREFIX=
 VERSION_DEBSUFFIX=-1+sdp1.0
 SOURCE_TARBALL_NAME=sac-"$VERSION"-source.tar.gz
 SOURCE_REQUIRED_CHECKSUMS="10e718c78cbbed405cce5b61053f511c670a85d986ee81d45741f38fcf6b57d5"
-ARCH=amd64
+ARCH=arm64
 BUILD_ROOT=$(pwd)
 
 if [ "$1" == "-h" ] || [ "$1" == "--help" ]
@@ -99,8 +99,12 @@ printf "\033[1;32m    - Done!\033[0m\n"
 printf "\033[1m+ Preparing for configuration...\033[0m\n"
 cd "$BUILD_ROOT"/sac-"$VERSION"
 patch $QUIET -p1 < ../0001-Fix-missing-DESTDIR-variable-in-Makefile.patch
+patch $QUIET -p1 < ../0001-Let-libedit-use-main-repo-s-cross-compile-config.patch
 rm $RM_ARGUMENT bin/sac-config bin/sacinit.csh bin/sacinit.sh
-./configure --prefix="/opt/sac" --enable-readline $QUIET
+wget -O config/config.guess 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
+wget -O config/config.sub 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
+chmod +x config/config.guess config/config.sub
+./configure --prefix="/opt/sac" --build=x86_64-liunx-gnu --host=aarch64-unknown-linux-gnu LDFLAGS='-static' $QUIET
 printf "\033[1;32m    - Done!\033[0m\n"
 
 printf "\033[1m+ Compiling...\033[0m\n"
