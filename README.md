@@ -47,6 +47,11 @@ apt install ./sac-iris-*_amd64.deb    #### with root
 
 * Maybe you have to re-login the shell (for e.g., `bash -l`) or desktop for loading newer environment.
 
+### Remove Installed SAC package
+
+```bash
+apt remove sac-iris      ### with root
+```
 
 ## To do
 
