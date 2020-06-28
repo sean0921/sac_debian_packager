@@ -3,7 +3,7 @@
 DEBIAN_PACKAGE_NAME=sac-iris
 VERSION=101.6a
 VERSION_DEBPREFIX=
-VERSION_DEBSUFFIX=-1+sdp1.1
+VERSION_DEBSUFFIX=-2+sdp1.1
 SOURCE_TARBALL_NAME=sac-"$VERSION"-source.tar.gz
 SOURCE_REQUIRED_CHECKSUMS="10e718c78cbbed405cce5b61053f511c670a85d986ee81d45741f38fcf6b57d5"
 ARCH=amd64
@@ -50,23 +50,23 @@ function check_distribution() {
     DISTRO_NAME=$(grep PRETTY_NAME /etc/os-release|awk -F'=' '{print $2}')
     case $DISTRO_NAME in
         '"Debian GNU/Linux 9 (stretch)"')
-            DEPENDENCIES="x11-apps, libncurses5, libreadline7"
+            DEPENDENCIES="x11-apps, libncurses5, libreadline7, libpng16-16"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"debian9"
             ;;
         '"Debian GNU/Linux 10 (buster)"')
-            DEPENDENCIES="x11-apps, libncurses6, libreadline7"
+            DEPENDENCIES="x11-apps, libncurses6, libreadline7, libpng16-16"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"debian10"
             ;;
         '"Ubuntu 16.04'*)
-            DEPENDENCIES="x11-apps, libncurses5, libreadline6"
+            DEPENDENCIES="x11-apps, libncurses5, libreadline6, libpng16-16"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"ubuntu16"
             ;;
         '"Ubuntu 18.04'*)
-            DEPENDENCIES="x11-apps, libncurses5, libreadline7"
+            DEPENDENCIES="x11-apps, libncurses5, libreadline7, libpng16-16"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"ubuntu18"
             ;;
         '"Ubuntu 20.04'*)
-            DEPENDENCIES="x11-apps, libncurses6, libreadline8"
+            DEPENDENCIES="x11-apps, libncurses6, libreadline8, libpng16-16"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"ubuntu20"
             ;;
         *)
@@ -116,7 +116,7 @@ printf "\033[1m+ Preparing for configuration...\033[0m\n"
 cd "$BUILD_ROOT"/sac-"$VERSION"
 patch $QUIET -p1 < ../0001-Fix-missing-DESTDIR-variable-in-Makefile.patch
 rm $RM_ARGUMENT bin/sac-config bin/sacinit.csh bin/sacinit.sh
-./configure --prefix="/opt/sac" --enable-readline $QUIET
+./configure --prefix="/opt/sac" --enable-readline --enable-png $QUIET
 printf "\033[1;32m    - Done!\033[0m\n"
 
 #################################### Building SAC...

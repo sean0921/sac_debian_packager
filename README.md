@@ -26,7 +26,7 @@
 ### Install Dependencies
 
 ```bash
-apt install build-essential libx11-dev libncurses-dev libreadline-dev  ### with root
+apt install build-essential libx11-dev libncurses-dev libreadline-dev libpng-dev ### with root
 ```
 
 ### Run build scripts
