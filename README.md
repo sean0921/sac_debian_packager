@@ -45,4 +45,4 @@ apt install ./sac-iris-*_amd64.deb    #### with root
 
 ### Done!
 
-* Maybe you have re-login the shell to load newer environment.
+* Maybe you have to re-login the shell for loading newer environment.
