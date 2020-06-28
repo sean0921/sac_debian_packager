@@ -42,7 +42,7 @@ cp $LOCATION_OF_DOWNLOADED_TARBALL ./
 ## For example, `cp ~/Download/sac-101.6a-source.tar.gz ./`
 ```
 
-### Install Dependencies
+### Install build dependencies
 
 ```bash
 apt install build-essential libx11-dev libncurses-dev libreadline-dev libpng-dev ### with root
@@ -56,7 +56,7 @@ change your current directory to this source code repo and:
 ./build.bash           ## or you can type bash build.bash
 ```
 
-### Install generated DEB file
+### Install generated `*.deb` file
 
 ```bash
 apt install ./sac-iris-*_amd64.deb    #### with root
@@ -66,12 +66,12 @@ apt install ./sac-iris-*_amd64.deb    #### with root
 
 * Maybe you have to re-login the shell (for e.g., `bash -l`) or desktop for loading newer environment.
 
-### Remove Installed SAC package
+### Remove installed SAC package
 
 ```bash
 apt remove sac-iris      ### with root
 ```
 
-## To do
+## To Do
 
 * Adding build dependencies package installing procedure to `build.bash`
