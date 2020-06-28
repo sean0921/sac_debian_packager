@@ -18,8 +18,8 @@
 
 ## Supported Shell for Profile Installation
 
-* bash
-* csh/tcsh
+* `bash`
+* `csh`/`tcsh`
 
 ## Use Steps
 
@@ -45,4 +45,9 @@ apt install ./sac-iris-*_amd64.deb    #### with root
 
 ### Done!
 
-* Maybe you have to re-login the shell for loading newer environment.
+* Maybe you have to re-login the shell (for e.g., `bash -l`) or desktop for loading newer environment.
+
+
+## To do
+
+* Adding build dependencies package installing procedure to `build.bash`
