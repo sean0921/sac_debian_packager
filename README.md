@@ -21,7 +21,7 @@
 * `bash`
 * `csh`/`tcsh`
 
-## Use Steps
+## How to use this script
 
 ### Install `git` and clone this repository
 
