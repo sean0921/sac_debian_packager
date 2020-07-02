@@ -4,11 +4,10 @@ DEBIAN_PACKAGE_NAME=sac-iris
 VERSION=101.6a
 VERSION_DEBPREFIX=
 VERSION_DEBSUFFIX=-2+sdp1.1
-SOURCE_TARBALL_NAME=sac-"$VERSION"-source.tar.gz
+SOURCE_TARBALL_NAME=sac-"$VERSION"_source.tar.gz
 SOURCE_REQUIRED_CHECKSUMS="10e718c78cbbed405cce5b61053f511c670a85d986ee81d45741f38fcf6b57d5"
 ARCH=amd64
 BUILD_ROOT=$(pwd)
-
 
 #################################### Phrasing Options
 
