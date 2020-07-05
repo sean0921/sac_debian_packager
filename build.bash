@@ -12,37 +12,35 @@ BUILD_ROOT=$(pwd)
 
 #################################### Phrasing Options
 
-if [ "$1" == "-h" ] || [ "$1" == "--help" ]
-then
-    printf "SAC Debian/Ubuntu Packager ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\n"
-    printf "\n"
-    printf "usage: \n"
-    printf "    -v, --verbose: show more detail message while building\n"
-    printf "    -V, --version: show more detail message while building\n"
-    printf "    -h, --help: show this help\n"
-    printf "\n"
-    exit 0
-fi
-
-if [ "$1" == "-V" ] || [ "$1" == "--version" ]
-then
-    printf "SAC Debian/Ubuntu Packager ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\n"
-    printf "\n"
-    exit 0
-fi
-
-if [ "$1" ==  "-v" ] || [ "$1" ==  "--verbose" ]
-then
-    QUIET=""
-    LN_ARGUMENT="-rsv"
-    RM_ARGUMENT="-rv"
-    MKDIR_ARGUMENT="-pv"
-else
-    QUIET="--quiet"
-    LN_ARGUMENT="-rs"
-    RM_ARGUMENT="-r"
-    MKDIR_ARGUMENT="-p"
-fi
+case "$1" in
+    -h|--help)
+        printf "SAC Debian/Ubuntu Packager ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\n"
+        printf "\n"
+        printf "usage: \n"
+        printf "    -v, --verbose: show more detail message while building\n"
+        printf "    -V, --version: show more detail message while building\n"
+        printf "    -h, --help: show this help\n"
+        printf "\n"
+        exit 0
+        ;;
+    -V|--version)
+        printf "SAC Debian/Ubuntu Packager ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\n"
+        printf "\n"
+        exit 0
+        ;;
+    -v|--verbose)
+        QUIET=""
+        LN_ARGUMENT="-rsv"
+        RM_ARGUMENT="-rv"
+        MKDIR_ARGUMENT="-pv"
+        ;;
+    *)
+        QUIET="--quiet"
+        LN_ARGUMENT="-rs"
+        RM_ARGUMENT="-r"
+        MKDIR_ARGUMENT="-p"
+        ;;
+esac
 
 #################################### Function for phrasing OS detections
 
