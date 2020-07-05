@@ -8,6 +8,10 @@ SOURCE_TARBALL_NAME=sac-"$VERSION"-source.tar.gz
 SOURCE_REQUIRED_CHECKSUMS="10e718c78cbbed405cce5b61053f511c670a85d986ee81d45741f38fcf6b57d5"
 ARCH=amd64
 BUILD_ROOT=$(pwd)
+if [ -z "$NO_FAKEROOT" ] || [ "$NO_FAKEROOT" == "False" ]
+then
+    NO_FAKEROOT="False"
+fi
 
 
 #################################### Phrasing Options
@@ -156,4 +160,11 @@ EOF
 #################################### Using prepared package root and control file to build a simple package in unformal debian format
 
 printf "\033[1;32m+ Use dpkg-deb to generate Debian/Ubuntu package...\033[0m\n"
+if [ "$NO_FAKEROOT" == "True" ]
+then
+    printf "    \033[1;33m+ Packaging in \033[1;31mNON\033[1;33m fakeroot mode.....\033[0m\n"
+    dpkg-deb --build pkgroot "$DEBIAN_PACKAGE_NAME"-""$VERSION_DEBPREFIX"$VERSION""$VERSION_DEBSUFFIX"_"$ARCH".deb
+    exit 0
+fi
+printf "    \033[1;33m+ Packaging in fakeroot mode.....\033[0m\n"
 fakeroot dpkg-deb --build pkgroot "$DEBIAN_PACKAGE_NAME"-""$VERSION_DEBPREFIX"$VERSION""$VERSION_DEBSUFFIX"_"$ARCH".deb
