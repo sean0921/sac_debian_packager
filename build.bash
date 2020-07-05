@@ -15,6 +15,7 @@ fi
 
 
 #################################### Phrasing Options
+### TO DO: using getopt supports
 
 case "$1" in
     -h|--help)
