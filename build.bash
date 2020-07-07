@@ -6,6 +6,7 @@ VERSION_DEBPREFIX=
 VERSION_DEBSUFFIX=-2+sdp1.2
 MAINTAINER="Sean Ho <sean.li.shin.ho@gmail.com>"
 SOURCE_TARBALL_NAME=sac-"$VERSION"-source.tar.gz
+SOURCE_TARBALL_NAME_LEGACY=sac-"$VERSION"_source.tar.gz
 SOURCE_REQUIRED_CHECKSUMS="10e718c78cbbed405cce5b61053f511c670a85d986ee81d45741f38fcf6b57d5"
 ARCH=amd64
 BUILD_ROOT=$(pwd)
@@ -14,6 +15,10 @@ then
     NO_FAKEROOT="False"
 fi
 
+if [ ! -e "$SOURCE_TARBALL_NAME" ] && [ -e "$SOURCE_TARBALL_NAME_LEGACY" ]
+then
+    SOURCE_TARBALL_NAME="$SOURCE_TARBALL_NAME_LEGACY"
+fi
 
 #################################### Phrasing Options
 ### TO DO: using getopt supports
