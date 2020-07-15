@@ -74,4 +74,6 @@ apt remove sac-iris      ### with root
 
 ## To Do
 
-* Adding build dependencies package installing procedure to `build.bash`
+* Add patch to fix wrong autoconf name (`configure.in` should be `configure.ac`), simplified duplicated patch.
+* Adding build dependencies package installing procedure to `build.bash`.
+* Pass the compilaion with `-fno-common` mode
