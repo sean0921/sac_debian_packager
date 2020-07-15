@@ -45,7 +45,7 @@ cp $LOCATION_OF_DOWNLOADED_TARBALL ./
 ### Install build dependencies
 
 ```bash
-apt install build-essential libx11-dev libncurses-dev libreadline-dev libpng-dev ### with root
+apt install build-essential libx11-dev libncurses-dev libreadline-dev ### with root
 ```
 
 ### Run build scripts
