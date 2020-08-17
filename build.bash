@@ -39,6 +39,15 @@ case "$1" in
         printf "\n"
         exit 0
         ;;
+    --clean)
+        printf "\033[1m+ Cleaning previous build...\033[0m\n"
+        test -d pkgroot && rm -rv pkgroot
+        test -e "$DEBIAN_PACKAGE_NAME"-""$VERSION_DEBPREFIX"$VERSION""$VERSION_DEBSUFFIX"_"$ARCH".deb \
+            && rm -v "$DEBIAN_PACKAGE_NAME"-""$VERSION_DEBPREFIX"$VERSION""$VERSION_DEBSUFFIX"_"$ARCH".deb
+        test -e sac-$VERSION/ && rm -rv sac-$VERSION
+        printf "\033[1;32m    - Done!\033[0m\n"
+        exit 0
+        ;;
     -v|--verbose)
         QUIET=""
         LN_ARGUMENT="-rsv"
