@@ -1,0 +1,34 @@
+From 335edfb5ab9255ed76fd723b2be8f8a6ddcd896e Mon Sep 17 00:00:00 2001
+From: Sean Ho <sean.li.shin.ho@gmail.com>
+Date: Mon, 17 Aug 2020 16:02:30 +0800
+Subject: [PATCH 3/3] correct automake variable syntax
+
+---
+ t/Makefile.am | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/t/Makefile.am b/t/Makefile.am
+index 045bb1f..5eeae25 100644
+--- a/t/Makefile.am
++++ b/t/Makefile.am
+@@ -11,7 +11,7 @@ TESTS_ENVIRONMENT = SACAUX=$(abs_top_srcdir)/aux \
+ #
+ # Options for testing the compiled code directly 
+ # 
+-CFLAGS          += $(DEBUG) $(COVERAGE) $(OPTIM) -Wall \
++AM_CFLAGS          = $(DEBUG) $(COVERAGE) $(OPTIM) -Wall \
+ 		   -I$(top_srcdir)/inc \
+ 		   -DTOP_SRCDIR=\"$(top_srcdir)\"
+ 
+@@ -21,7 +21,7 @@ LDADD            = -L../src/ -lsac_all \
+                    -lSacOracleStubFuncs 
+ if EDITLINE
+ LDADD            += ../libedit/lib/libedit.a
+-CFLAGS           += -I../libedit/include
++AM_CFLAGS           += -I../libedit/include
+ endif
+ FORMAT_LIBS      = $(xpm_LIBS) $(png_LIBS) $(zlib_LIBS) $(xft_LIBS)
+ SAC_GRAPHICS     = -L.. -lsac_x11 -lsgf -lturtle -lsac_all
+-- 
+2.27.0
+

@@ -44,12 +44,14 @@ case "$1" in
         LN_ARGUMENT="-rsv"
         RM_ARGUMENT="-rv"
         MKDIR_ARGUMENT="-pv"
+        AUTORECONF_ARUMENT="-fiv"
         ;;
     *)
         QUIET="--quiet"
         LN_ARGUMENT="-rs"
         RM_ARGUMENT="-r"
         MKDIR_ARGUMENT="-p"
+        AUTORECONF_ARUMENT="-fi"
         ;;
 esac
 
@@ -128,7 +130,10 @@ printf "\033[1;32m    - Done!\033[0m\n"
 printf "\033[1m+ Preparing for configuration...\033[0m\n"
 cd "$BUILD_ROOT"/sac-"$VERSION"
 patch $QUIET -p1 < ../0001-Fix-missing-DESTDIR-variable-in-Makefile.patch
+patch $QUIET -p1 < ../0002-correct-name-of-autoreconf-file-configure.ac.patch
+patch $QUIET -p1 < ../0003-correct-automake-variable-syntax.patch
 rm $RM_ARGUMENT bin/sac-config bin/sacinit.csh bin/sacinit.sh
+autoreconf $AUTORECONF_ARUMENT
 ./configure CFLAGS="-fcommon" --prefix="/opt/sac" --enable-readline $QUIET
 printf "\033[1;32m    - Done!\033[0m\n"
 
