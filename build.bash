@@ -31,6 +31,7 @@ case "$1" in
         printf "    -v, --verbose: show more detail message while building\n"
         printf "    -V, --version: show more detail message while building\n"
         printf "    -h, --help: show this help\n"
+        printf "    --clean: clean binary and generated data after package building\n"
         printf "\n"
         exit 0
         ;;

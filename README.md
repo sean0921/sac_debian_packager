@@ -75,6 +75,12 @@ apt install ./sac-iris-*_amd64.deb    #### with root, you can change * to specif
 apt remove sac-iris      ### with root
 ```
 
+### Clean Build Directory before Rebuild
+
+```bash
+./build.bash --clean
+```
+
 ## To Do
 
 * ~~Add patch to fix wrong autoconf name (`configure.in` should be `configure.ac`), simplified duplicated patch.~~
