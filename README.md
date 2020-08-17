@@ -24,6 +24,8 @@
 
 ## How to use this script
 
+* If you know what [docker](https://www.docker.com/) is, it is suggested to use it or create new clean container/chroot to simplify your build environment.
+
 ### Install `git` and clone this repository
 
 ```bash
@@ -46,7 +48,7 @@ cp $LOCATION_OF_DOWNLOADED_TARBALL ./
 ### Install build dependencies
 
 ```bash
-apt install build-essential libx11-dev libncurses-dev libreadline-dev ### with root
+apt install build-essential libx11-dev libncurses-dev libreadline-dev autoconf automake autopoint autotools-dev ### with root
 ```
 
 ### Run build scripts
@@ -54,13 +56,13 @@ apt install build-essential libx11-dev libncurses-dev libreadline-dev ### with r
 change your current directory to this source code repo and:
 
 ```bash
-./build.bash           ## or you can type bash build.bash
+./build.bash --verbose        ## or you can type bash build.bash
 ```
 
 ### Install generated `*.deb` file
 
 ```bash
-apt install ./sac-iris-*_amd64.deb    #### with root
+apt install ./sac-iris-*_amd64.deb    #### with root, you can change * to specific version number
 ```
 
 ### Done!
@@ -75,6 +77,6 @@ apt remove sac-iris      ### with root
 
 ## To Do
 
-* Add patch to fix wrong autoconf name (`configure.in` should be `configure.ac`), simplified duplicated patch.
+* ~~Add patch to fix wrong autoconf name (`configure.in` should be `configure.ac`), simplified duplicated patch.~~
 * Adding build dependencies package installing procedure to `build.bash`.
 * Pass the compilaion with `-fno-common` mode
