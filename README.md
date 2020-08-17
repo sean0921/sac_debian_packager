@@ -3,6 +3,8 @@
 * **NOTE: Because of LICENSE restriction, this repository does NOT provide IRIS's SAC source code for you.  You have to APPLY and download sources tarball on your own if you have related qualifications!**
     - Official software request page: http://ds.iris.edu/ds/nodes/dmc/forms/sac/
 
+![](https://github.com/sean0921/sean0921.github.io/raw/master/images/demo.gif)
+
 ## Benefits
 
 * Let installing and uninstalling steps more cleanly (NO MORE `sudo make install`!  It will mess up your system!)
