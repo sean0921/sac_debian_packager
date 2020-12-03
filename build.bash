@@ -1,31 +1,21 @@
 #!/usr/bin/env bash
 
 DEBIAN_PACKAGE_NAME=sac-iris
-VERSION=101.6a
+VERSION=102.0
 VERSION_DEBPREFIX=
-VERSION_DEBSUFFIX=-3+sdp2.0
+VERSION_DEBSUFFIX=-0+sdp2.1
 MAINTAINER="Sean Ho <sean.li.shin.ho@gmail.com>"
-SOURCE_TARBALL_NAME=sac-"$VERSION"-source.tar.gz
-SOURCE_TARBALL_NAME_LEGACY=sac-"$VERSION"_source.tar.gz
-SOURCE_REQUIRED_CHECKSUMS="10e718c78cbbed405cce5b61053f511c670a85d986ee81d45741f38fcf6b57d5"
+SOURCE_TARBALL_NAME=sac-"$VERSION".tar.gz
+SOURCE_REQUIRED_CHECKSUMS="6815c2879d047f1f4961dbd52102ab131faac862661ec6a128ab00575b8abc12"
 ARCH=amd64
 BUILD_ROOT=$(pwd)
-if [ -z "$NO_FAKEROOT" ] || [ "$NO_FAKEROOT" == "False" ]
-then
-    NO_FAKEROOT="False"
-fi
-
-if [ ! -e "$SOURCE_TARBALL_NAME" ] && [ -e "$SOURCE_TARBALL_NAME_LEGACY" ]
-then
-    SOURCE_TARBALL_NAME="$SOURCE_TARBALL_NAME_LEGACY"
-fi
 
 #################################### Phrasing Options
 ### TO DO: using getopt supports
 
 case "$1" in
     -h|--help)
-        printf "SAC Debian/Ubuntu Packager ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\n"
+        printf "SAC Debian/Ubuntu Packager ver ${VERSION_DEBPREFIX}${VERSION}${VERSION_DEBSUFFIX}\n"
         printf "\n"
         printf "usage: \n"
         printf "    -v, --verbose: show more detail message while building\n"
@@ -36,16 +26,16 @@ case "$1" in
         exit 0
         ;;
     -V|--version)
-        printf "SAC Debian/Ubuntu Packager ver $VERSION_DEBPREFIX$VERSION$VERSION_DEBSUFFIX\n"
+        printf "SAC Debian/Ubuntu Packager ver ${VERSION_DEBPREFIX}${VERSION}${VERSION_DEBSUFFIX}\n"
         printf "\n"
         exit 0
         ;;
     --clean)
         printf "\033[1m+ Cleaning previous build...\033[0m\n"
         test -d pkgroot && rm -rv pkgroot
-        test -e "$DEBIAN_PACKAGE_NAME"-""$VERSION_DEBPREFIX"$VERSION""$VERSION_DEBSUFFIX"_"$ARCH".deb \
-            && rm -v "$DEBIAN_PACKAGE_NAME"-""$VERSION_DEBPREFIX"$VERSION""$VERSION_DEBSUFFIX"_"$ARCH".deb
-        test -e sac-$VERSION/ && rm -rv sac-$VERSION
+        test -e ${DEBIAN_PACKAGE_NAME}-${VERSION_DEBPREFIX}${VERSION}${VERSION_DEBSUFFIX}_${ARCH}.deb \
+            && rm -v ${DEBIAN_PACKAGE_NAME}-${VERSION_DEBPREFIX}${VERSION}${VERSION_DEBSUFFIX}_${ARCH}.deb
+        test -e sac-${VERSION}/ && rm -rv sac-${VERSION}
         printf "\033[1;32m    - Done!\033[0m\n"
         exit 0
         ;;
@@ -139,10 +129,7 @@ printf "\033[1;32m    - Done!\033[0m\n"
 
 printf "\033[1m+ Preparing for configuration...\033[0m\n"
 cd "$BUILD_ROOT"/sac-"$VERSION"
-patch $QUIET -p1 < ../0001-Fix-missing-DESTDIR-variable-in-Makefile.patch
-patch $QUIET -p1 < ../0002-correct-name-of-autoreconf-file-configure.ac.patch
-patch $QUIET -p1 < ../0003-correct-automake-variable-syntax.patch
-rm $RM_ARGUMENT bin/sac-config bin/sacinit.csh bin/sacinit.sh
+patch $QUIET -p1 < ../0001-refresh-DESTDIR-fix-patch.patch
 autoreconf $AUTORECONF_ARUMENT
 ./configure CFLAGS="-fcommon" --prefix="/opt/sac" --enable-readline $QUIET
 printf "\033[1;32m    - Done!\033[0m\n"
@@ -188,11 +175,5 @@ EOF
 #################################### Using prepared package root and control file to build a simple package in unformal debian format
 
 printf "\033[1;32m+ Use dpkg-deb to generate Debian/Ubuntu package...\033[0m\n"
-if [ "$NO_FAKEROOT" == "True" ]
-then
-    printf "    \033[1;33m+ Packaging in \033[1;31mNON\033[1;33m fakeroot mode.....\033[0m\n"
-    dpkg-deb --build pkgroot "$DEBIAN_PACKAGE_NAME"-""$VERSION_DEBPREFIX"$VERSION""$VERSION_DEBSUFFIX"_"$ARCH".deb
-    exit 0
-fi
 printf "    \033[1;33m+ Packaging in fakeroot mode.....\033[0m\n"
 fakeroot dpkg-deb --build pkgroot "$DEBIAN_PACKAGE_NAME"-""$VERSION_DEBPREFIX"$VERSION""$VERSION_DEBSUFFIX"_"$ARCH".deb

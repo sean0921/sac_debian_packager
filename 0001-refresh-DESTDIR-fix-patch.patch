@@ -1,0 +1,46 @@
+From be5f18f96a314d564feff0f33ae3592fedf9a610 Mon Sep 17 00:00:00 2001
+From: Sean Ho <sean.li.shin.ho@gmail.com>
+Date: Thu, 3 Dec 2020 20:50:28 +0800
+Subject: [PATCH] refresh DESTDIR fix patch
+
+---
+ Makefile.am | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 669036c..8a04f9d 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -66,22 +66,22 @@ CLEANFILES =  bin/sacinit.sh bin/sacinit.csh bin/sac-config
+ 
+ # Rules to install Extra Subdirectories and Files
+ install-data-hook:
+-	$(INSTALL) -d $(prefix)/utils
+-	if [ -e $(prefix)/lib64 ]; then \
+-     cd $(prefix); ln -s lib64 lib; \
++	$(INSTALL) -d $(DESTDIR)$(prefix)/utils
++	if [ -e $(DESTDIR)$(prefix)/lib64 ]; then \
++     cd $(DESTDIR)$(prefix); ln -s lib64 lib; \
+   fi
+ 	cd $(srcdir); \
+ 	for d in $(EXTRA_INSTALL); do \
+ 	   for f in `(find $$d -type d)`; do \
+-	      $(INSTALL) -d $(prefix)/$$f; \
++	      $(INSTALL) -d $(DESTDIR)$(prefix)/$$f; \
+ 	   done; \
+ 	   for f in `(find $$d -type f)`; do \
+-        $(INSTALL_DATA) $$f $(prefix)/$$f; \
++        $(INSTALL_DATA) $$f $(DESTDIR)$(prefix)/$$f; \
+ 	   done; \
+ 	done; \
+ 	cd -
+-	( cd $(prefix)/lib && rm -f sacio.a )
+-	( cd $(prefix)/lib && $(LN_S) libsacio.a sacio.a )
++	( cd $(DESTDIR)$(prefix)/lib && rm -f sacio.a )
++	( cd $(DESTDIR)$(prefix)/lib && $(LN_S) libsacio.a sacio.a )
+ 	$(MAKE) dist-hook
+ 
+ dist-save-time: distdir
+-- 
+2.27.0
+
