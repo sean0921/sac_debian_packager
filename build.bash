@@ -49,19 +49,19 @@ case "$1" in
         printf "\033[1;32m    - Done!\033[0m\n"
         exit 0
         ;;
-    -v|--verbose)
-        QUIET=""
-        LN_ARGUMENT="-rsv"
-        RM_ARGUMENT="-rv"
-        MKDIR_ARGUMENT="-pv"
-        AUTORECONF_ARUMENT="-fiv"
-        ;;
-    *)
+    --quiet)
         QUIET="--quiet"
         LN_ARGUMENT="-rs"
         RM_ARGUMENT="-r"
         MKDIR_ARGUMENT="-p"
         AUTORECONF_ARUMENT="-fi"
+        ;;
+    -v|--verbose|*)
+        QUIET=""
+        LN_ARGUMENT="-rsv"
+        RM_ARGUMENT="-rv"
+        MKDIR_ARGUMENT="-pv"
+        AUTORECONF_ARUMENT="-fiv"
         ;;
 esac
 
