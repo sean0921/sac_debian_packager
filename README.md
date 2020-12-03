@@ -1,6 +1,6 @@
 # SAC Debian/Ubuntu Packager
 
-* **NOTE: Because of LICENSE restriction, this repository does NOT provide IRIS's SAC source code for you.  You have to APPLY and download sources tarball on your own if you have related qualifications!**
+* **NOTE: Because of LICENSE restriction, this repository does NOT provide IRIS' SAC source code or binary packages for you.  You have to APPLY and download sources tarball on your own if you have related qualifications!**
     - Official software request page: http://ds.iris.edu/ds/nodes/dmc/forms/sac/
 
 ![](https://github.com/sean0921/sean0921.github.io/raw/3ef1e32d61fc62c546c6ba31ef526ccc050cc7b2/images/demo.gif)
