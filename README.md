@@ -48,7 +48,7 @@ cp $LOCATION_OF_DOWNLOADED_TARBALL ./              ## For example, cp ~/Download
 ### Install build dependencies
 
 ```bash
-apt install build-essential libx11-dev libncurses-dev libreadline-dev autoconf automake autopoint autotools-dev ### with root
+apt install build-essential libx11-dev libncurses-dev libreadline-dev autoconf automake autopoint autotools-dev libcurl4-openssl-dev zlib1g-dev libxml2-dev pkg-config ### with root
 ```
 
 ### Run build scripts
