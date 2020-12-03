@@ -42,9 +42,7 @@ or you can download [current `*.zip` archive of this repository](https://github.
 
 ```bash
 cd sac_debian_packager
-
-cp $LOCATION_OF_DOWNLOADED_TARBALL ./
-## For example, `cp ~/Download/sac-101.6a-source.tar.gz ./`
+cp $LOCATION_OF_DOWNLOADED_TARBALL ./              ## For example, cp ~/Download/sac-101.6a-source.tar.gz ./
 ```
 
 ### Install build dependencies
@@ -58,7 +56,7 @@ apt install build-essential libx11-dev libncurses-dev libreadline-dev autoconf a
 change your current directory to this source code repo and:
 
 ```bash
-./build.bash --verbose        ## or you can type bash build.bash
+./build.bash                          ## or you can type bash build.bash
 ```
 
 ### Install generated `*.deb` file
@@ -85,6 +83,6 @@ apt remove sac-iris      ### with root
 
 ## To Do
 
-* ~~Add patch to fix wrong autoconf name (`configure.in` should be `configure.ac`), simplified duplicated patch.~~
 * Adding build dependencies package installing procedure to `build.bash`.
-* Pass the compilaion with `-fno-common` mode
+* ~~Add patch to fix wrong autoconf name (`configure.in` should be `configure.ac`), simplified duplicated patch.~~ (upstream fixed)
+* ~~Pass the compilaion with `-fno-common` mode~~ (upstream fixed)
