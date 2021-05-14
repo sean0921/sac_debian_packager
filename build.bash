@@ -3,7 +3,7 @@
 DEBIAN_PACKAGE_NAME=sac-iris
 VERSION=102.0
 VERSION_DEBPREFIX=
-VERSION_DEBSUFFIX=-1+sdp1.1
+VERSION_DEBSUFFIX=-1+sdp2.0
 MAINTAINER="Sean Ho <sean.li.shin.ho@gmail.com>"
 SOURCE_TARBALL_NAME=sac-"$VERSION".tar.gz
 SOURCE_REQUIRED_CHECKSUMS="6815c2879d047f1f4961dbd52102ab131faac862661ec6a128ab00575b8abc12"
@@ -45,6 +45,14 @@ case "$1" in
         RM_ARGUMENT="-r"
         MKDIR_ARGUMENT="-p"
         AUTORECONF_ARUMENT="-fi"
+        ;;
+    --arm64)
+        ARCH="arm64"
+        QUIET=""
+        LN_ARGUMENT="-rsv"
+        RM_ARGUMENT="-rv"
+        MKDIR_ARGUMENT="-pv"
+        AUTORECONF_ARUMENT="-fiv"
         ;;
     -v|--verbose|*)
         QUIET=""
@@ -131,7 +139,7 @@ printf "\033[1m+ Preparing for configuration...\033[0m\n"
 cd "$BUILD_ROOT"/sac-"$VERSION"
 patch $QUIET -p1 < ../0001-refresh-DESTDIR-fix-patch.patch
 autoreconf $AUTORECONF_ARUMENT
-./configure --prefix="/opt/sac" --enable-readline $QUIET
+./configure --prefix="/opt/sac" --enable-readline $QUIET CFLAGS="-fsigned-char -ggdb"
 printf "\033[1;32m    - Done!\033[0m\n"
 
 #################################### Building SAC...
