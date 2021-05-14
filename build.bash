@@ -46,15 +46,20 @@ case "$1" in
         MKDIR_ARGUMENT="-p"
         AUTORECONF_ARUMENT="-fi"
         ;;
-    -v|--verbose|*)
+    --arm64)
+        ARCH="arm64"
         QUIET=""
         LN_ARGUMENT="-rsv"
         RM_ARGUMENT="-rv"
         MKDIR_ARGUMENT="-pv"
         AUTORECONF_ARUMENT="-fiv"
         ;;
-    --arm64)
-        ARCH="arm64"
+    -v|--verbose|*)
+        QUIET=""
+        LN_ARGUMENT="-rsv"
+        RM_ARGUMENT="-rv"
+        MKDIR_ARGUMENT="-pv"
+        AUTORECONF_ARUMENT="-fiv"
         ;;
 esac
 
