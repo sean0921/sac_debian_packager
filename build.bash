@@ -53,6 +53,9 @@ case "$1" in
         MKDIR_ARGUMENT="-pv"
         AUTORECONF_ARUMENT="-fiv"
         ;;
+    --arm64)
+        ARCH="arm64"
+        ;;
 esac
 
 #################################### Function for phrasing OS detections
@@ -131,7 +134,7 @@ printf "\033[1m+ Preparing for configuration...\033[0m\n"
 cd "$BUILD_ROOT"/sac-"$VERSION"
 patch $QUIET -p1 < ../0001-refresh-DESTDIR-fix-patch.patch
 autoreconf $AUTORECONF_ARUMENT
-./configure --prefix="/opt/sac" --enable-readline $QUIET
+./configure --prefix="/opt/sac" --enable-readline $QUIET CFLAGS="-fsigned-char"
 printf "\033[1;32m    - Done!\033[0m\n"
 
 #################################### Building SAC...
