@@ -63,6 +63,9 @@ case "$1" in
         MKDIR_ARGUMENT="-pv"
         AUTORECONF_ARUMENT="-fiv"
         ;;
+    --arm64)
+        ARCH="arm64"
+        ;;
 esac
 
 #################################### Function for phrasing OS detections
@@ -144,7 +147,7 @@ patch $QUIET -p1 < ../0002-correct-name-of-autoreconf-file-configure.ac.patch
 patch $QUIET -p1 < ../0003-correct-automake-variable-syntax.patch
 rm $RM_ARGUMENT bin/sac-config bin/sacinit.csh bin/sacinit.sh
 autoreconf $AUTORECONF_ARUMENT
-./configure CFLAGS="-fcommon" --prefix="/opt/sac" --enable-readline $QUIET
+./configure CFLAGS="-fcommon -fsigned-char" --prefix="/opt/sac" --enable-readline $QUIET
 printf "\033[1;32m    - Done!\033[0m\n"
 
 #################################### Building SAC...
