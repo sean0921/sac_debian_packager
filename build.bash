@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+. /etc/os-release
+
 DEBIAN_PACKAGE_NAME=sac-iris
 VERSION=102.0
 VERSION_DEBPREFIX=
-VERSION_DEBSUFFIX=-1+sdp2.0
+VERSION_DEBSUFFIX=-1+sdp2.1
 MAINTAINER="Sean Ho <sean.li.shin.ho@gmail.com>"
 SOURCE_TARBALL_NAME=sac-"$VERSION".tar.gz
 SOURCE_REQUIRED_CHECKSUMS="6815c2879d047f1f4961dbd52102ab131faac862661ec6a128ab00575b8abc12"
@@ -66,29 +68,28 @@ esac
 #################################### Function for phrasing OS detections
 
 function check_distribution() {
-    DISTRO_NAME=$(grep PRETTY_NAME /etc/os-release|awk -F'=' '{print $2}')
-    case $DISTRO_NAME in
-        '"Debian GNU/Linux 9 (stretch)"')
+    case ${PRETTY_NAME} in
+        "Debian GNU/Linux 9 (stretch)")
             DEPENDENCIES="x11-apps, libncurses5, libreadline7"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"debian9"
             ;;
-        '"Debian GNU/Linux 10 (buster)"')
+        "Debian GNU/Linux 10 (buster)")
             DEPENDENCIES="x11-apps, libncurses6, libreadline7"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"debian10"
             ;;
-        '"Debian GNU/Linux bullseye/sid"')
+        "Debian GNU/Linux 11 (bullseye)")
             DEPENDENCIES="x11-apps, libncurses6, libreadline8"
-            VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"debiansid"
+            VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"debian11"
             ;;
-        '"Ubuntu 16.04'*)
+        "Ubuntu 16.04"*)
             DEPENDENCIES="x11-apps, libncurses5, libreadline6"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"ubuntu16"
             ;;
-        '"Ubuntu 18.04'*)
+        "Ubuntu 18.04"*)
             DEPENDENCIES="x11-apps, libncurses5, libreadline7"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"ubuntu18"
             ;;
-        '"Ubuntu 20.04'*)
+        "Ubuntu 20.04"*)
             DEPENDENCIES="x11-apps, libncurses6, libreadline8"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"ubuntu20"
             ;;
