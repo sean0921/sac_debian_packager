@@ -5,7 +5,7 @@
 DEBIAN_PACKAGE_NAME=sac-iris
 VERSION=102.0
 VERSION_DEBPREFIX=
-VERSION_DEBSUFFIX=-1+sdp2.1
+VERSION_DEBSUFFIX=-1+sdp3.0
 MAINTAINER="Sean Ho <sean.li.shin.ho@gmail.com>"
 SOURCE_TARBALL_NAME=sac-"$VERSION".tar.gz
 SOURCE_REQUIRED_CHECKSUMS="6815c2879d047f1f4961dbd52102ab131faac862661ec6a128ab00575b8abc12"
@@ -153,10 +153,8 @@ printf "\033[1;32m    - Done!\033[0m\n"
 
 printf "\033[1;32m+ Adding program to distro path...\033[0m\n"
 make DESTDIR="$BUILD_ROOT"/pkgroot $QUIET install
-cd "$BUILD_ROOT"
-ln $LN_ARGUMENT pkgroot/opt/sac/bin/sac pkgroot/usr/bin/sac
-ln $LN_ARGUMENT pkgroot/opt/sac/bin/sacinit.sh pkgroot/etc/profile.d/sac_bash_profile.sh
-ln $LN_ARGUMENT pkgroot/opt/sac/bin/sacinit.csh pkgroot/etc/csh/login.d/sacinit.csh
+cd $BUILD_ROOT
+install -m 0755 sac_in_distro.sh pkgroot/usr/bin/sac
 
 #################################### Writing suitable information to packaging file
 
