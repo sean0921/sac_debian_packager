@@ -78,6 +78,10 @@ function check_distribution() {
             DEPENDENCIES="x11-apps, libncurses6, libreadline8"
             VERSION_DEBSUFFIX="${VERSION_DEBSUFFIX}debian11"
             ;;
+        "Debian GNU/Linux bookworm/sid")
+            DEPENDENCIES="x11-apps, libncurses6, libreadline8"
+            VERSION_DEBSUFFIX="${VERSION_DEBSUFFIX}debian12"
+            ;;
         "Ubuntu 16.04"*)
             DEPENDENCIES="x11-apps, libncurses5, libreadline6"
             VERSION_DEBSUFFIX="${VERSION_DEBSUFFIX}ubuntu16"
