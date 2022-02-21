@@ -5,7 +5,7 @@
 DEBIAN_PACKAGE_NAME=sac-iris
 VERSION=102.0
 VERSION_DEBPREFIX=
-VERSION_DEBSUFFIX=-1+sdp3.1
+VERSION_DEBSUFFIX=-1+sdp3.2
 MAINTAINER="Sean Ho <sean.li.shin.ho@gmail.com>"
 SOURCE_TARBALL_NAME="sac-${VERSION}.tar.gz"
 SOURCE_REQUIRED_CHECKSUMS="6815c2879d047f1f4961dbd52102ab131faac862661ec6a128ab00575b8abc12"
@@ -158,6 +158,7 @@ printf "\033[1;32m+ Adding program to distro path...\033[0m\n"
 make DESTDIR="${BUILD_ROOT}/pkgroot" ${QUIET} install
 cd "${BUILD_ROOT}"
 install -m 0755 sac_in_distro.sh pkgroot/usr/bin/sac
+install -m 0644 qdp_off.m pkgroot/opt/sac/macros/qdp_off.m
 
 #################################### Writing suitable information to packaging file
 
