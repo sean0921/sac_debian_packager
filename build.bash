@@ -17,7 +17,7 @@ BUILD_ROOT="$(pwd)"
 
 case "$1" in
     -h|--help)
-        printf "SAC Debian/Ubuntu Packager ver ${VERSION_DEBPREFIX}${VERSION}${VERSION_DEBSUFFIX}\n"
+        printf "SAC Debian/Ubuntu Packager ver %s%s%s\n" "${VERSION_DEBPREFIX}" "${VERSION}" "${VERSION_DEBSUFFIX}"
         printf "\n"
         printf "usage: \n"
         printf "    -v, --verbose: show more detail message while building\n"
@@ -28,7 +28,7 @@ case "$1" in
         exit 0
         ;;
     -V|--version)
-        printf "SAC Debian/Ubuntu Packager ver ${VERSION_DEBPREFIX}${VERSION}${VERSION_DEBSUFFIX}\n"
+        printf "SAC Debian/Ubuntu Packager ver %s%s%s\n" "${VERSION_DEBPREFIX}" "${VERSION}" "${VERSION_DEBSUFFIX}"
         printf "\n"
         exit 0
         ;;
@@ -109,14 +109,14 @@ function check_distribution() {
 
 set -eu
 
-printf "\033[1;36mSAC Debian/Ubuntu Packager ver ${VERSION_DEBPREFIX}${VERSION}${VERSION_DEBSUFFIX}\033[0m\n"
-printf "\033[1;33m+ Starting Build in ${BUILD_ROOT} ...\033[0m\n"
+printf "\033[1;36mSAC Debian/Ubuntu Packager ver %s%s%s\033[0m\n" "${VERSION_DEBPREFIX}" "${VERSION}" "${VERSION_DEBSUFFIX}"
+printf "\033[1;33m+ Starting Build in %s...\033[0m\n" "${BUILD_ROOT}"
 
 #################################### Cleaning previous build for preventing accident error
 
 printf "\033[1m+ Cleaning previous build...\033[0m\n"
 test -d pkgroot && rm ${RM_ARGUMENT} pkgroot
-test -e *.deb && rm ${RM_ARGUMENT} *.deb
+test -e ./*.deb && rm ${RM_ARGUMENT} -- ./*.deb
 test -e "sac-${VERSION}" && rm ${RM_ARGUMENT} "sac-${VERSION}"
 mkdir ${MKDIR_ARGUMENT} pkgroot/DEBIAN
 mkdir ${MKDIR_ARGUMENT} pkgroot/usr/bin
@@ -128,7 +128,7 @@ printf "\033[1;32m    - Done!\033[0m\n"
 
 #################################### Checking whether the source code is right or wrong
 
-printf "\033[1m+ Checking source tarball ( ${PWD}/{$SOURCE_TARBALL_NAME} )...\033[0m\n"
+printf "\033[1m+ Checking source tarball ( %s/%s )...\033[0m\n" "${PWD}" "${SOURCE_TARBALL_NAME}"
 ( test -e "${SOURCE_TARBALL_NAME}" &&
     (>&2 printf "\033[1;32m    - Tarball exists!\033[0m\n") ) ||
     ( printf "\033[1;31m   x Tarball does not exist or filename was wrong!\033[0m\n" && exit 1)
@@ -145,20 +145,24 @@ printf "\033[1;32m    - Done!\033[0m\n"
 
 printf "\033[1m+ Preparing for configuration...\033[0m\n"
 cd "${BUILD_ROOT}"/sac-"${VERSION}"
+# shellcheck disable=SC2086
 patch ${QUIET} -p1 < ../0001-refresh-DESTDIR-fix-patch.patch
 autoreconf ${AUTORECONF_ARUMENT}
-./configure --prefix="/opt/sac" --enable-readline ${QUIET} CFLAGS="-fsigned-char -ggdb"
+# shellcheck disable=SC2086
+./configure --prefix="/opt/sac" --enable-readline "${QUIET}" CFLAGS="-fsigned-char -ggdb"
 printf "\033[1;32m    - Done!\033[0m\n"
 
 #################################### Building SAC...
 
 printf "\033[1m+ Compiling...\033[0m\n"
-make -j$(nproc) ${QUIET}
+# shellcheck disable=SC2086
+make -j"$(nproc)" ${QUIET}
 printf "\033[1;32m    - Done!\033[0m\n"
 
 #################################### Installing SAC to package root
 
 printf "\033[1;32m+ Adding program to distro path...\033[0m\n"
+# shellcheck disable=SC2086
 make DESTDIR="${BUILD_ROOT}/pkgroot" ${QUIET} install
 cd "${BUILD_ROOT}"
 install -m 0755 sac_in_distro.sh pkgroot/usr/bin/sac

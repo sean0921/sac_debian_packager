@@ -84,9 +84,6 @@ apt remove sac-iris      ### with root
 ## To Do
 
 * Adding build dependencies package installing procedure to `build.bash`.
-* fix shellcheck warning:
-  -  https://www.shellcheck.net/wiki/SC2046 -- Quote this to prevent word splitt...
-  -  https://www.shellcheck.net/wiki/SC1091 -- Not following: `/etc/os-release` wa...
-  -  https://www.shellcheck.net/wiki/SC2035 -- Use `./*glob*` or `-- *glob*` so name...
+* ~~fix shellcheck warning~~
 * ~~Add patch to fix wrong autoconf name (`configure.in` should be `configure.ac`), simplified duplicated patch.~~ (upstream fixed)
 * ~~Pass the compilaion with `-fno-common` mode~~ (upstream fixed)
