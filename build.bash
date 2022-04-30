@@ -94,6 +94,10 @@ function check_distribution() {
             DEPENDENCIES="x11-apps, libncurses6, libreadline8"
             VERSION_DEBSUFFIX="${VERSION_DEBSUFFIX}ubuntu20"
             ;;
+        "Ubuntu 22.04"*)
+            DEPENDENCIES="x11-apps, libncurses6, libreadline8"
+            VERSION_DEBSUFFIX="${VERSION_DEBSUFFIX}ubuntu22"
+            ;;
         *)
             printf "\033[1;31m   x Sorry, we don't support this distribution for packaging!\033[0m\n"
             exit 1
