@@ -144,7 +144,7 @@ printf "\033[1;32m    - Done!\033[0m\n"
 #################################### Configuring for later compiling...
 
 printf "\033[1m+ Preparing for configuration...\033[0m\n"
-cd "$BUILD_ROOT"/sac-"${VERSION}"
+cd "${BUILD_ROOT}"/sac-"${VERSION}"
 patch ${QUIET} -p1 < ../0001-refresh-DESTDIR-fix-patch.patch
 autoreconf ${AUTORECONF_ARUMENT}
 ./configure --prefix="/opt/sac" --enable-readline ${QUIET} CFLAGS="-fsigned-char -ggdb"
