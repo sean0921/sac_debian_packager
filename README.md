@@ -28,12 +28,11 @@
 
 * If you know what [docker](https://www.docker.com/) is, it is suggested to use it or create new clean container/chroot to simplify your build environment.
 
-### Install `git` and clone this repository
+### Download latest release of this script
 
 ```bash
-apt update       ### with root
-apt install git  ### with root
-git clone https://github.com/sean0921/sac_debian_packager.git sac_debian_packager
+wget https://github.com/sean0921/sac_debian_packager/releases/latest/download/script.tar.gz
+tar -xvf script.tar.gz
 ```
 
 or you can download [current `*.zip` archive of this repository](https://github.com/sean0921/sac_debian_packager/archive/master.zip) and extract it.
@@ -41,8 +40,8 @@ or you can download [current `*.zip` archive of this repository](https://github.
 ### Put downloaded SAC source tarball into cloned repo
 
 ```bash
-cd sac_debian_packager
-cp $LOCATION_OF_DOWNLOADED_TARBALL ./              ## For example, cp ~/Download/sac-101.6a-source.tar.gz ./
+cd sac_debian_packager-${VERSION_NUMBER}
+cp ${LOCATION_OF_DOWNLOADED_TARBALL} ./              ## For example, cp ~/Download/sac-101.6a-source.tar.gz ./
 ```
 
 ### Install build dependencies
