@@ -3,7 +3,7 @@
 DEBIAN_PACKAGE_NAME=sac-iris
 VERSION=101.6a
 VERSION_DEBPREFIX=
-VERSION_DEBSUFFIX=-3+sdp2.0
+VERSION_DEBSUFFIX=-4+sdp2.2
 MAINTAINER="Sean Ho <sean.li.shin.ho@gmail.com>"
 SOURCE_TARBALL_NAME=sac-"$VERSION"-source.tar.gz
 SOURCE_TARBALL_NAME_LEGACY=sac-"$VERSION"_source.tar.gz
@@ -86,7 +86,11 @@ function check_distribution() {
             DEPENDENCIES="x11-apps, libncurses6, libreadline7"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"debian10"
             ;;
-        '"Debian GNU/Linux bullseye/sid"')
+        '"Debian GNU/Linux 11 (bullseye)"')
+            DEPENDENCIES="x11-apps, libncurses6, libreadline8"
+            VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"debian11"
+            ;;
+        '"Debian GNU/Linux bookworm/sid"')
             DEPENDENCIES="x11-apps, libncurses6, libreadline8"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"debiansid"
             ;;
@@ -101,6 +105,10 @@ function check_distribution() {
         '"Ubuntu 20.04'*)
             DEPENDENCIES="x11-apps, libncurses6, libreadline8"
             VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"ubuntu20"
+            ;;
+        '"Ubuntu 22.04'*)
+            DEPENDENCIES="x11-apps, libncurses6, libreadline8"
+            VERSION_DEBSUFFIX=$VERSION_DEBSUFFIX"ubuntu22"
             ;;
         *)
             printf "\033[1;31m   x Sorry, we don't support this distribution for packaging!\033[0m\n"
@@ -165,10 +173,8 @@ printf "\033[1;32m    - Done!\033[0m\n"
 
 printf "\033[1;32m+ Adding program to distro path...\033[0m\n"
 make DESTDIR="$BUILD_ROOT"/pkgroot $QUIET install
-cd "$BUILD_ROOT"
-ln $LN_ARGUMENT pkgroot/opt/sac/bin/sac pkgroot/usr/bin/sac
-ln $LN_ARGUMENT pkgroot/opt/sac/bin/sacinit.sh pkgroot/etc/profile.d/sac_bash_profile.sh
-ln $LN_ARGUMENT pkgroot/opt/sac/bin/sacinit.csh pkgroot/etc/csh/login.d/sacinit.csh
+cd $BUILD_ROOT
+install -m 0755 sac_in_distro.sh pkgroot/usr/bin/sac
 
 #################################### Writing suitable information to packaging file
 
