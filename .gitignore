@@ -1,4 +1,4 @@
-sac-*[-_]source.tar.gz
+sac-*.tar.gz
 sac-iris-*.deb
 sac-*/
 pkgroot/
