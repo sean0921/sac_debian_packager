@@ -146,7 +146,7 @@ printf "\033[1;32m    - Done!\033[0m\n"
 printf "\033[1m+ Preparing for configuration...\033[0m\n"
 cd "${BUILD_ROOT}"/sac-"${VERSION}"
 # shellcheck disable=SC2086
-patch ${QUIET} -p1 < ../0001-refresh-DESTDIR-fix-patch.patch
+sed -i '66,86s/$(prefix)/$(DESTDIR)$(prefix)/g' Makefile.am
 autoreconf ${AUTORECONF_ARUMENT}
 # shellcheck disable=SC2086
 ./configure --prefix="/opt/sac" --enable-readline "${QUIET}" CFLAGS="-fsigned-char -ggdb"
