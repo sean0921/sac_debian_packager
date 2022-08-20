@@ -12,30 +12,28 @@
 
 ## Supported Linux Distribution
 
-* Debian Stretch (9/oldstable)
-* Debian Buster (10/stable)
-* Debian Sid (bulleye/sid)
+* Debian Stretch (9/oldoldstable)
+* Debian Buster (10/oldstable)
+* Debian Bullseye (11/stable)
+* Debian Sid (bookworm/sid)
 * Ubuntu Xenial Xerus (16.04)
 * Ubuntu Bionic Beaver (18.04)
 * Ubuntu Focal Fossa (20.04)
+* Ubuntu Jammy Jellyfish (22.04)
 
-## Supported Shell for Profile Installation
+## Supported Linux Architecture
 
-* `bash`
-* `csh`/`tcsh`
+* amd64
+* arm64 (aarch64)
 
 ## How to use this script
 
 * If you know what [docker](https://www.docker.com/) is, it is suggested to use it or create new clean container/chroot to simplify your build environment.
+* If you are lazy to use docker/other chroot-like environment, please make sure your environment are not too messy (too many custom installation, i.e. `sudo make install`)
 
 ### Download latest release of this script
 
-```bash
-wget https://github.com/sean0921/sac_debian_packager/releases/latest/download/script.tar.gz
-tar -xvf script.tar.gz
-```
-
-or you can download [current `*.zip` archive of this repository](https://github.com/sean0921/sac_debian_packager/archive/master.zip) and extract it.
+You can download [current `*.zip` archive of this repository](https://github.com/sean0921/sac_debian_packager/archive/master.zip) and extract it.
 
 ### Put downloaded SAC source tarball into cloned repo
 
@@ -55,7 +53,7 @@ apt install build-essential libx11-dev libncurses-dev libreadline-dev autoconf a
 change your current directory to this source code repo and:
 
 ```bash
-./build.bash                          ## or you can type bash build.bash
+./build.bash                          ### with normal user, or you can type bash build.bash
 ```
 
 ### Install generated `*.deb` file
@@ -66,7 +64,7 @@ apt install ./sac-iris-*_amd64.deb    #### with root, you can change * to specif
 
 ### Done!
 
-* Maybe you have to re-login the shell (for e.g., `bash -l`) or desktop for loading newer environment.
+* You can directly type `sac` and run the SAC program, *without any shell profile installation*.
 
 ### Remove installed SAC package
 
@@ -77,7 +75,7 @@ apt remove sac-iris      ### with root
 ### Clean Build Directory before Rebuild
 
 ```bash
-./build.bash --clean
+./build.bash --clean     ### with normal user
 ```
 
 ## To Do
