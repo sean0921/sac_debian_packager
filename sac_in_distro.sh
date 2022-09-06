@@ -1,4 +1,15 @@
 #!/bin/sh
-set -e
+
+SAC_PROGRAM_BASENAME=$(basename $0)
 . /opt/sac/bin/sacinit.sh
-exec /opt/sac/bin/sac /opt/sac/macros/qdp_off.m "$@"
+
+set -e
+
+case "${SAC_PROGRAM_BASENAME}" in
+    "sac")
+        exec "/opt/sac/bin/${SAC_PROGRAM_BASENAME}" /opt/sac/macros/qdp_off.m "$@"
+        ;;
+    *)
+        exec "/opt/sac/bin/${SAC_PROGRAM_BASENAME}" "$@"
+        ;;
+esac
