@@ -3,7 +3,7 @@
 DEBIAN_PACKAGE_NAME=sac-iris
 VERSION=101.6a
 VERSION_DEBPREFIX=
-VERSION_DEBSUFFIX=-4+sdp2.2
+VERSION_DEBSUFFIX=-4+sdp2.3
 MAINTAINER="Sean Ho <sean.li.shin.ho@gmail.com>"
 SOURCE_TARBALL_NAME=sac-"$VERSION"-source.tar.gz
 SOURCE_TARBALL_NAME_LEGACY=sac-"$VERSION"_source.tar.gz
@@ -172,9 +172,13 @@ printf "\033[1;32m    - Done!\033[0m\n"
 #################################### Installing SAC to package root
 
 printf "\033[1;32m+ Adding program to distro path...\033[0m\n"
-make DESTDIR="$BUILD_ROOT"/pkgroot $QUIET install
-cd $BUILD_ROOT
-install -m 0755 sac_in_distro.sh pkgroot/usr/bin/sac
+# shellcheck disable=SC2086
+make DESTDIR="${BUILD_ROOT}/pkgroot" ${QUIET} install
+cd "${BUILD_ROOT}"
+for i in bbfswap sac sac-config saclst sacswap sgfswap sgftoeps.csh sgftops sgftox.csh unvis
+do
+    install -m 0755 sac_in_distro.sh "pkgroot/usr/bin/${i}"
+done
 
 #################################### Writing suitable information to packaging file
 
