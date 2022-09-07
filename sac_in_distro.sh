@@ -7,7 +7,7 @@ set -e
 
 case "${SAC_PROGRAM_BASENAME}" in
     "sac")
-        exec "/opt/sac/bin/${SAC_PROGRAM_BASENAME}" /opt/sac/macros/qdp_off.m "$@"
+        exec "/opt/sac/bin/${SAC_PROGRAM_BASENAME}" "$@"
         ;;
     *)
         exec "/opt/sac/bin/${SAC_PROGRAM_BASENAME}" "$@"
