@@ -1,3 +1,5 @@
+- This package is no longer maintained before I come back to seismology world.  If someone is agreed with the concept of this repo, fork is [welcome](/LICENSE)!
+
 # SAC Debian/Ubuntu Packager
 
 * **NOTE: Because of LICENSE restriction, this repository does NOT provide IRIS' SAC source code or binary packages for you.  You have to APPLY and download sources tarball on your own if you have related qualifications!**
